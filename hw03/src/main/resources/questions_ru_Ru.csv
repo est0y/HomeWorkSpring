@@ -1,0 +1,5 @@
+Какое утверждение верно?,Spring framework это леговесное решение.,Spring framework это тяжеловесное решение.
+Какой стандатный scope бинов в spring? ,singleton,prototype,request,session,global session
+С какой версии появился Spring Expression Language?,Spring 3.0,Spring 2.5
+AOP являеется основной частью spring framework?,Нет,Да
+Какой класс представляет Ioc контейнер,ApplicationContext,ServletContext
