@@ -2,7 +2,7 @@ package ru.est0y.quiz.services.impl;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import ru.est0y.quiz.services.Parser;
 
 import java.io.FileNotFoundException;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CsvParser implements Parser {
     private final String path;
 

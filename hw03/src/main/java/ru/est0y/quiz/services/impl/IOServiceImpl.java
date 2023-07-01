@@ -1,13 +1,13 @@
 package ru.est0y.quiz.services.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import ru.est0y.quiz.services.IOService;
 
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IOServiceImpl implements IOService {
     private final Scanner scanner;
 

@@ -2,14 +2,21 @@ package ru.est0y.quiz.services;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.est0y.quiz.services.impl.QuestionServiceImpl;
 
 import java.security.InvalidParameterException;
 import java.util.List;
-
+@ExtendWith(MockitoExtension.class)
 class QuestionServiceImplTest {
-    private final Parser mock = Mockito.mock(Parser.class);
+    @Mock
+    private Parser mock ;
+    @InjectMocks
+    QuestionServiceImpl questionService;
 
     @Test
     void getAllQuestions() {
@@ -17,7 +24,7 @@ class QuestionServiceImplTest {
                 List.of("Question", "Option1", "Option2"),
                 List.of("Question2", "Option1", "Option2")
         ));
-        var result = new QuestionServiceImpl(mock).getAllQuestions();
+        var result = questionService.getAllQuestions();
         var question = result.get(0);
         Assertions.assertEquals("Question", question.getQuestion());
         Assertions.assertEquals(2, question.getOptions().size());

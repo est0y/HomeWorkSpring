@@ -1,6 +1,6 @@
 package ru.est0y.quiz.services.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.est0y.quiz.domain.AnsweredQuestion;
 import ru.est0y.quiz.domain.Question;
@@ -11,7 +11,7 @@ import ru.est0y.quiz.services.Stringifier;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class QuestionAskerImpl implements QuestionAsker {
     private final IOService ioService;
 

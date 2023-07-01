@@ -1,13 +1,13 @@
 package ru.est0y.quiz.config;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import ru.est0y.quiz.config.props.LocaleProp;
 
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Properties {
     private final MessageSource messageSource;
 
