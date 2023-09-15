@@ -12,6 +12,7 @@
         <module>hw01</module>
         <module>hw02</module>
         <module>hw03</module>
+        <module>hw04</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -26,11 +27,14 @@
         <spring-boot-maven-plugin.version>3.0.1</spring-boot-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>6.0.9</spring.version>
+        <spring-boot-starter-test.version>3.1.0</spring-boot-starter-test.version>
         <checkstyle-plugin.version>3.1.2</checkstyle-plugin.version>
         <checkstyle.version>10.9.1</checkstyle.version>
         <checkstyle.config.url>https://raw.githubusercontent.com/OtusTeam/Spring/master/checkstyle.xml
         </checkstyle.config.url>
         <lombol.version>1.18.28</lombol.version>
+        <opencsv.version>5.7.1</opencsv.version>
+        <spring-shell-starter.version>3.1.2</spring-shell-starter.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -50,41 +54,46 @@
             <dependency>
                 <groupId>com.opencsv</groupId>
                 <artifactId>opencsv</artifactId>
-                <version>5.7.1</version>
+                <version>${opencsv.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
-                <version>3.1.0</version>
+                <version>${spring-boot-starter-test.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.shell</groupId>
+                <artifactId>spring-shell-starter</artifactId>
+                <version>${spring-shell-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <pluginManagement>
-        <plugins>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+                </plugin>
 
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-maven-plugin.version}</version>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven-enforcer-plugin.version}</version>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${checkstyle-plugin.version}</version>
+                </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle-plugin.version}</version>
-            </plugin>
-
-        </plugins>
+            </plugins>
         </pluginManagement>
     </build>
 </project>
