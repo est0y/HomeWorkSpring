@@ -13,6 +13,7 @@
         <module>hw02</module>
         <module>hw03</module>
         <module>hw04</module>
+        <module>hw05</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -33,11 +34,18 @@
         <checkstyle.config.url>https://raw.githubusercontent.com/OtusTeam/Spring/master/checkstyle.xml
         </checkstyle.config.url>
         <lombol.version>1.18.28</lombol.version>
+        <h2.version>2.2.220</h2.version>
         <opencsv.version>5.7.1</opencsv.version>
+
         <spring-shell-starter.version>3.1.2</spring-shell-starter.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.shell</groupId>
+                <artifactId>spring-shell-starter</artifactId>
+                <version>${spring-shell-starter.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
@@ -63,11 +71,16 @@
                 <version>${spring-boot-starter-test.version}</version>
                 <scope>test</scope>
             </dependency>
-
+          
             <dependency>
-                <groupId>org.springframework.shell</groupId>
-                <artifactId>spring-shell-starter</artifactId>
-                <version>${spring-shell-starter.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>3.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -87,13 +100,30 @@
                     <version>${maven-enforcer-plugin.version}</version>
                 </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>${checkstyle-plugin.version}</version>
-                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>${checkstyle.config.url}</configLocation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 
-            </plugins>
         </pluginManagement>
     </build>
 </project>
