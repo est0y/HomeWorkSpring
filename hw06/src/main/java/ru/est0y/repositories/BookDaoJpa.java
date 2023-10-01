@@ -6,10 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.est0y.domain.Author;
 import ru.est0y.domain.Book;
-import ru.est0y.domain.Genre;
-import ru.est0y.dto.BookDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,22 +28,13 @@ public class BookDaoJpa implements BookDao {
     }
 
     @Override
-    public void update(BookDto bookDto) {
-        var authorId = bookDto.getAuthorId();
-        var genreId = bookDto.getGenreId();
-        var author = em.find(Author.class, authorId);
-        var genre = em.find(Genre.class, genreId);
-        var book = new Book(bookDto.getId(), bookDto.getName(), author, genre);
+    public void update(Book book) {
         em.merge(book);
     }
 
     @Override
-    public void insert(BookDto bookDto) {
-        var authorId = bookDto.getAuthorId();
-        var genreId = bookDto.getGenreId();
-        var author = em.find(Author.class, authorId);
-        var genre = em.find(Genre.class, genreId);
-        em.persist(new Book(0L, bookDto.getName(), author, genre));
+    public void insert(Book book) {
+        em.persist(book);
     }
 
 

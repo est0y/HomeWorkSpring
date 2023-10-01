@@ -2,12 +2,10 @@ package ru.est0y.repositories;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.est0y.domain.BookComment;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -37,12 +35,5 @@ public class BookCommentJpaDao implements BookCommentDao {
         em.remove(bookComment);
     }
 
-    public List<BookComment> findByBookId(long bookId) {
-        TypedQuery<BookComment> query = em.createQuery(
-                "select c from BookComment c where c.book.id=:bookId",
-                BookComment.class);
-        query.setParameter("bookId", bookId);
-        return query.getResultList();
-    }
 }
 

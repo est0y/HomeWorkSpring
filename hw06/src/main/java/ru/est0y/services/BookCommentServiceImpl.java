@@ -3,6 +3,7 @@ package ru.est0y.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Hibernate;
 import ru.est0y.domain.BookComment;
 import ru.est0y.repositories.BookCommentDao;
 
@@ -32,7 +33,6 @@ public class BookCommentServiceImpl implements BookCommentService {
         bookCommentDao.update(comment);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Optional<BookComment> findById(long id) {
         return bookCommentDao.findById(id);
@@ -41,7 +41,9 @@ public class BookCommentServiceImpl implements BookCommentService {
     @Transactional(readOnly = true)
     @Override
     public List<BookComment> findByBookId(long id) {
-        return bookCommentDao.findByBookId(id);
+        var comments = bookService.findById(id).orElseThrow().getComments();
+        Hibernate.initialize(comments);
+        return comments;
     }
 
     @Transactional

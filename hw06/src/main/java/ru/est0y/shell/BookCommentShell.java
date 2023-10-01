@@ -18,7 +18,9 @@ public class BookCommentShell {
 
     @ShellMethod(key = {"dcbbi", "display-comments-by-book-id"}, value = "display comments by book id")
     public String displayByBookId(@ShellOption(value = "bookId") long bookId) {
-        return bookCommentStringifier.stringify(bookCommentService.findByBookId(bookId));
+        return bookCommentStringifier.stringify(
+                bookCommentService.findByBookId(bookId)
+        );
     }
 
     @ShellMethod(key = {"dcbi", "display-comment-by-id"}, value = "display comment by id")

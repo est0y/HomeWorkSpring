@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Import;
 import ru.est0y.domain.Author;
 import ru.est0y.domain.Book;
 import ru.est0y.domain.Genre;
-import ru.est0y.dto.BookDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.optional;
@@ -24,6 +23,7 @@ class BookDaoJpaTest {
 
     @Autowired
     private TestEntityManager em;
+
     @Test
     void deleteById() {
         bookDaoJpa.deleteById(1);
@@ -32,15 +32,19 @@ class BookDaoJpaTest {
 
     @Test
     void update() {
-        var expectedBook=new Book(1L,"Book 1 updated",new Author(1L,"Author 1"),new Genre(1L,"Genre 1"));
-        bookDaoJpa.update(new BookDto(1L,"Book 1 updated",1,1));
+        var expectedBook = new Book(1L, "Book 1 updated", new Author(1L, "Author 1"), new Genre(1L, "Genre 1"));
+        bookDaoJpa.update(expectedBook);
         optional(Book.class).createAssert(bookDaoJpa.findById(1)).get().isEqualTo(expectedBook);
     }
 
     @Test
-    void insert(){
-        var expectedBook=new Book(2L,"Book 2",new Author(1L,"Author 1"),new Genre(1L,"Genre 1"));
-        bookDaoJpa.insert(new BookDto(0L,"Book 2",1,1));
+    void insert() {
+        var name = "Book 2";
+        var author = new Author(1L, "Author 1");
+        var genre = new Genre(1L, "Genre 1");
+        var book = new Book(0L, name, author, genre);
+        var expectedBook = new Book(2L, name, author, genre);
+        bookDaoJpa.insert(book);
         optional(Book.class).createAssert(bookDaoJpa.findById(2)).get().isEqualTo(expectedBook);
 
     }

@@ -5,7 +5,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.est0y.domain.Book;
-import ru.est0y.dto.BookDto;
 import ru.est0y.repositories.BookDao;
 
 import java.util.List;
@@ -14,6 +13,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
+    private final AuthorService authorService;
+
+    private final GenreService genreService;
 
     private final BookDao bookDao;
 
@@ -21,7 +23,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public void insert(String name, long authorId, long genreId) {
         try {
-            bookDao.insert(new BookDto(0L, name, authorId, genreId));
+            var author = authorService.findById(authorId).orElseThrow();
+            var genre = genreService.findById(genreId).orElseThrow();
+            bookDao.insert(new Book(0L,name,author,genre));
         } catch (DataAccessException dataAccessException) {
             dataAccessException.printStackTrace();
         }
@@ -30,7 +34,9 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void update(long id, String name, long authorId, long genreId) {
-        bookDao.update(new BookDto(id, name, authorId, genreId));
+        var author = authorService.findById(authorId).orElseThrow();
+        var genre = genreService.findById(genreId).orElseThrow();
+        bookDao.update(new Book(id,name,author,genre));
 
     }
 

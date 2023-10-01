@@ -52,9 +52,4 @@ class BookCommentJpaDaoTest {
         assertThat(em.find(BookComment.class, 1)).isNull();
     }
 
-    @Test
-    void findByBookId() {
-        var comments = bookCommentJpaDao.findByBookId(1);
-        assertThat(comments).contains(EXPECTED_COMMENT2, EXPECTED_COMMENT1);
-    }
 }
