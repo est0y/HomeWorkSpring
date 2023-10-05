@@ -1,7 +1,6 @@
 package ru.est0y.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.est0y.domain.Book;
@@ -22,13 +21,9 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void insert(String name, long authorId, long genreId) {
-        try {
             var author = authorService.findById(authorId).orElseThrow();
             var genre = genreService.findById(genreId).orElseThrow();
             bookDao.insert(new Book(0L,name,author,genre));
-        } catch (DataAccessException dataAccessException) {
-            dataAccessException.printStackTrace();
-        }
     }
 
     @Transactional
