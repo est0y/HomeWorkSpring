@@ -1,0 +1,10 @@
+package ru.est0y.repositories;
+
+import org.springframework.data.repository.CrudRepository;
+import ru.est0y.domain.Author;
+
+import java.util.List;
+
+public interface AuthorDao extends CrudRepository<Author,Long> {
+    List<Author>findAll();
+}
