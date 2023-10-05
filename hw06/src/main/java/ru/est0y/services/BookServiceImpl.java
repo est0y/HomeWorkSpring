@@ -34,8 +34,12 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void update(long id, String name, long authorId, long genreId) {
+        var book = bookDao.findById(id).orElseThrow();
         var author = authorService.findById(authorId).orElseThrow();
         var genre = genreService.findById(genreId).orElseThrow();
+        book.setName(name);
+        book.setAuthor(author);
+        book.setGenre(genre);
         bookDao.update(new Book(id,name,author,genre));
 
     }
