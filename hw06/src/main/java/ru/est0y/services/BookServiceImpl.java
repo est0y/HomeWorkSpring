@@ -36,16 +36,13 @@ public class BookServiceImpl implements BookService {
         book.setAuthor(author);
         book.setGenre(genre);
         bookDao.update(new Book(id,name,author,genre));
-
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Optional<Book> findById(long id) {
         return bookDao.findById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Book> findAll() {
         return bookDao.findAll();
