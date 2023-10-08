@@ -38,19 +38,16 @@ public class BookServiceImpl implements BookService {
         bookDao.save(book);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Optional<Book> findById(long id) {
         return bookDao.findById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Book> findAll() {
         return bookDao.findAll();
     }
 
-    @Transactional
     @Override
     public void deleteById(long id) {
         bookDao.deleteById(id);

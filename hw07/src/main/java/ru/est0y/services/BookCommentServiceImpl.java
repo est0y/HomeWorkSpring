@@ -43,10 +43,8 @@ public class BookCommentServiceImpl implements BookCommentService {
         return bookCommentDao.findCommentsByBookId(id);
     }
 
-    @Transactional
     @Override
     public void deleteById(long id) {
-        var comment = findById(id).orElseThrow();
-        bookCommentDao.delete(comment);
+        bookCommentDao.deleteById(id);
     }
 }
