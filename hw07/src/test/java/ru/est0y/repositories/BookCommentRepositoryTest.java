@@ -9,9 +9,9 @@ import ru.est0y.domain.BookComment;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class BookCommentDaoTest {
+class BookCommentRepositoryTest {
     @Autowired
-    private BookCommentDao bookCommentDao;
+    private BookCommentRepository bookCommentRepository;
 
     @Autowired
     private TestEntityManager em;
@@ -20,6 +20,6 @@ class BookCommentDaoTest {
     void findCommentsByBookId() {
         var comment1 = em.find(BookComment.class, 1L);
         var comment2 = em.find(BookComment.class, 2L);
-        assertThat(bookCommentDao.findCommentsByBookId(1)).containsOnly(comment1, comment2);
+        assertThat(bookCommentRepository.findCommentsByBookId(1)).containsOnly(comment1, comment2);
     }
 }

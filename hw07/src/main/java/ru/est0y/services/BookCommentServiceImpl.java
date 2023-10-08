@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.est0y.domain.BookComment;
-import ru.est0y.repositories.BookCommentDao;
+import ru.est0y.repositories.BookCommentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookCommentServiceImpl implements BookCommentService {
 
-    private final BookCommentDao bookCommentDao;
+    private final BookCommentRepository bookCommentRepository;
 
     private final BookService bookService;
 
@@ -21,7 +21,7 @@ public class BookCommentServiceImpl implements BookCommentService {
     @Override
     public void insert(String text, long bookId) {
         var book = bookService.findById(bookId).orElseThrow();
-        bookCommentDao.save(new BookComment(0L, text, book));
+        bookCommentRepository.save(new BookComment(0L, text, book));
     }
 
     @Transactional
@@ -29,22 +29,22 @@ public class BookCommentServiceImpl implements BookCommentService {
     public void update(long id, String text) {
         var comment = findById(id).orElseThrow();
         comment.setText(text);
-        bookCommentDao.save(comment);
+        bookCommentRepository.save(comment);
     }
 
     @Override
     public Optional<BookComment> findById(long id) {
-        return bookCommentDao.findById(id);
+        return bookCommentRepository.findById(id);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<BookComment> findByBookId(long id) {
-        return bookCommentDao.findCommentsByBookId(id);
+        return bookCommentRepository.findCommentsByBookId(id);
     }
 
     @Override
     public void deleteById(long id) {
-        bookCommentDao.deleteById(id);
+        bookCommentRepository.deleteById(id);
     }
 }

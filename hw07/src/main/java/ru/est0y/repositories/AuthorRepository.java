@@ -5,6 +5,6 @@ import ru.est0y.domain.Author;
 
 import java.util.List;
 
-public interface AuthorDao extends CrudRepository<Author,Long> {
+public interface AuthorRepository extends CrudRepository<Author,Long> {
     List<Author>findAll();
 }

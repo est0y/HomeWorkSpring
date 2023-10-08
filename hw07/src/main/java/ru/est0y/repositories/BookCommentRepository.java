@@ -5,6 +5,6 @@ import ru.est0y.domain.BookComment;
 
 import java.util.List;
 
-public interface BookCommentDao extends CrudRepository<BookComment,Long> {
+public interface BookCommentRepository extends CrudRepository<BookComment,Long> {
     List<BookComment> findCommentsByBookId(long bookId);
 }

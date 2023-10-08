@@ -6,7 +6,7 @@ import ru.est0y.domain.Book;
 
 import java.util.List;
 
-public interface BookDao extends CrudRepository<Book,Long> {
+public interface BookRepository extends CrudRepository<Book,Long> {
     @EntityGraph(value = "books-entity-graph")
     List<Book> findAll();
 }
