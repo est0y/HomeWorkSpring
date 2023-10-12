@@ -1,0 +1,19 @@
+spring:
+  data:
+    mongodb:
+      port: 0
+      database: test
+
+mongock:
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.est0y.mongock.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
