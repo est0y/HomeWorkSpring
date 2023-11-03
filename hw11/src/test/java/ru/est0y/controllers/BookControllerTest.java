@@ -12,6 +12,7 @@ import ru.est0y.domain.Author;
 import ru.est0y.domain.Book;
 import ru.est0y.domain.Genre;
 import ru.est0y.dto.BookDto;
+import ru.est0y.dto.BookDtoWithoutId;
 import ru.est0y.dto.SimpleBookDto;
 import ru.est0y.services.BookService;
 
@@ -63,6 +64,15 @@ class BookControllerTest {
     }
 
     @Test
+    void testCreateBook() {
+        init();
+        var dto = new BookDtoWithoutId("name", "2", "2");
+        webTestClient.post().uri("/book").bodyValue(dto)
+                .exchange().expectStatus().isCreated();
+        verify(bookService).insert(dto);
+    }
+
+    @Test
     void testUpdateBook() {
         init();
         var dto = new BookDto("1", "name", "2", "2");
@@ -86,6 +96,7 @@ class BookControllerTest {
         given(bookService.findById("2")).willReturn(Mono.just(books.get(1)));
         given(bookService.deleteById("1")).willReturn(Mono.empty());
         given(bookService.update(any())).willReturn(Mono.empty());
+        given(bookService.insert(any())).willReturn(Mono.empty());
     }
 
 }
