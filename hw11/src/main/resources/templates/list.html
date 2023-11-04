@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all Books</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .books {
+            border: 1px solid steelblue;
+            width: 300px;
+            border-collapse: collapse;
+        }
+
+        .books tr td, th {
+            padding: 5px;
+            border: 1px solid steelblue;
+        }
+
+        .books td:last-child, td:first-child {
+            width: 50px;
+        }
+
+
+    </style>
+</head>
+<body>
+<h3>Books:</h3>
+
+<table id="books" class="books">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Genre</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<a href="creation.html" th:href="@{/creation}">Creation</a>
+</body>
+<script>
+ function deleteBook(id) {
+        fetch('/book/' + id, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    console.error('Error deleting book');
+                }
+            })
+            .catch(error => console.error(error));
+    }
+
+
+var evtSource = new EventSource("http://localhost:8080/book");
+    evtSource.onmessage = function (event) {
+       console.log(event);
+       const data = JSON.parse(event.data);
+
+    const table = document.getElementById("books");
+    const tbody = table.querySelector('tbody');
+
+    const tr = document.createElement('tr');
+                tr.innerHTML = `
+        <td>${data.id}</td>
+        <td>${data.name}</td>
+        <td>${data.authorName}</td>
+        <td>${data.genreName}</td>
+        <td>
+            <button><a href="/edit/${data.id}">Edit</a></button>
+            <button id="deleteButton" onclick="deleteBook('${data.id}')">Delete Book</button>
+        </td>
+      `;
+
+    tbody.appendChild(tr);
+}
+     evtSource.onerror = (error) => {
+            if (error.eventPhase === EventSource.CLOSED) {
+                console.log("eventSource is close")
+                evtSource.close();
+            }
+        };
+
+</script>
+</html>
