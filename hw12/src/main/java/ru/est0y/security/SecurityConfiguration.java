@@ -19,7 +19,8 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .antMatchers("/login").permitAll()
-                        .antMatchers("/*").authenticated()
+                        .antMatchers("/**").authenticated()
+                        .anyRequest().denyAll()
                 )
                 .formLogin();
         return http.build();
