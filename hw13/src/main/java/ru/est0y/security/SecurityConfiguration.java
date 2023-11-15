@@ -18,7 +18,7 @@ import ru.est0y.services.UserService;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @EnableWebSecurity
 public class SecurityConfiguration {
-
+    //SecurityFilterChain с фильтрацией с помощью @Secured
     //@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -36,7 +36,7 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-    //SecurityFilterChain с ограничениями на http методы
+    //SecurityFilterChain с фильтрами по http методам
     @Bean
     public SecurityFilterChain securityFilterChainWithHttpMethodFilter(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
