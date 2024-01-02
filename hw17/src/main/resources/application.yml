@@ -1,0 +1,41 @@
+spring:
+  app:
+    name: hw17
+  jmx:
+    enabled: true
+  data:
+    rest:
+      basePath: /datarest
+    mongodb:
+      host: localhost
+      port: 0
+      database: SpringBatchExampleDB
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
+
+mongock:
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.est0y.mongock.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,health,logfile
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+logging:
+  file:
+    name: "./logs/${spring.app.name}.log"
