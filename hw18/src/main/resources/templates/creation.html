@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Creation Book</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<form id="creationForm" method="post" action="edit.html" th:action="@{/create}">
+    <h3>Book Info:</h3>
+
+    <div class="row">
+        <label for="book-name-input">Name:</label>
+        <input id="book-name-input" name="name" type="text" value="book name"/>
+    </div>
+
+    <div class="row">
+        <label for="book-author-name-select">Author:</label>
+        <select name="authorId" id="book-author-name-select">
+
+        </select>
+    </div>
+
+    <div class="row">
+        <label for="book-genre-name-select">Genre:</label>
+        <select name="genreId" id="book-genre-name-select">
+        </select>
+    </div>
+
+    <div class="row">
+        <button type="submit">Save</button>
+        <a href="list.html" th:href="@{/books}">
+            <button type="button">Cancel</button>
+        </a>
+    </div>
+</form>
+</body>
+<script>
+    fetch('/author')
+        .then(response => response.json())
+        .then(data => {
+            const authorSelect = document.getElementById('book-author-name-select');
+            data.forEach(author => {
+                const option = document.createElement('option');
+                option.value = author.id;
+                option.textContent = author.name;
+                authorSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+
+</script>
+
+<script>
+    fetch('/genre')
+        .then(response => response.json())
+        .then(data => {
+            const genreSelect = document.getElementById('book-genre-name-select');
+            data.forEach(genre => {
+                const option = document.createElement('option');
+                option.value = genre.id;
+                option.textContent = genre.name;
+                genreSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+
+</script>
+
+<script>
+    const form = document.getElementById('creationForm');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById('book-name-input').value;
+        const authorId = document.getElementById('book-author-name-select').value;
+        const genreId = document.getElementById('book-genre-name-select').value;
+
+        const data = {
+            name,
+            authorId,
+            genreId
+        };
+
+        fetch('/book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Book insert');
+                    location.reload();
+                } else {
+                    throw new Error(response.status);
+                }
+            })
+            .catch(
+                error => {
+                  console.error('Error insert book');
+                }
+            );
+    });
+
+</script>
+</html>
